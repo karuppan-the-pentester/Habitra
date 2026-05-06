@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ & Contact — Habitra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+    }
+    @media (max-width: 800px) { .faq-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .faq-side h2 {
+      margin: 8px 0 0;
+      font-family: var(--font-serif); font-weight: 400;
+      font-size: clamp(32px, 4vw, 44px);
+      letter-spacing: -0.02em; line-height: 1.05;
+      color: var(--fg);
+    }
+    .faq-side p { color: var(--muted); margin-top: 16px; max-width: 32ch; }
+
+    .faq-list { border-top: 1px solid var(--hairline); }
+    .faq-item { border-bottom: 1px solid var(--hairline); }
+    .faq-q {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 4px;
+      background: transparent; border: none;
+      cursor: pointer; text-align: left;
+      color: var(--fg);
+      font-family: var(--font-sans); font-size: 16.5px; font-weight: 500;
+      transition: color 180ms;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-q .icon { transition: transform 280ms cubic-bezier(.2,.8,.2,1); color: var(--muted); }
+    .faq-item.open .faq-q .icon { transform: rotate(45deg); color: var(--accent); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 360ms ease;
+    }
+    .faq-item.open .faq-a { max-height: 240px; }
+    .faq-a-inner {
+      padding: 0 32px 24px 4px;
+      color: var(--muted); font-size: 14.5px; line-height: 1.65;
+    }
+
+    /* Contact cards */
+    .contact-grid {
+      margin-top: 96px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--hairline);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .contact-card {
+      background: var(--bg);
+      padding: 32px 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: background 220ms;
+    }
+    .contact-card:hover { background: var(--surface); }
+    .contact-card:hover .c-icon { transform: scale(1.08) rotate(-4deg); }
+    .c-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface-2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      transition: transform 280ms cubic-bezier(.2,.8,.2,1);
+    }
+    .contact-card h3 {
+      margin: 0;
+      font-family: var(--font-serif); font-weight: 500;
+      font-size: 20px; letter-spacing: -0.01em; color: var(--fg);
+    }
+    .contact-card p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+    .contact-card a { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 500; }
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* Form */
+    .contact-form {
+      margin-top: 64px;
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      background: oklch(var(--surface-c) / 0.4);
+      border: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    @media (max-width: 700px) { .contact-form { grid-template-columns: 1fr; padding: 28px; } }
+    .contact-form .full { grid-column: 1 / -1; }
+    .contact-form label { display: flex; flex-direction: column; gap: 6px; }
+    .contact-form .lbl { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--subtle); font-weight: 500; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: var(--font-sans); font-size: 14px;
+      transition: all 160ms;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--surface-2);
+      box-shadow: 0 0 0 3px oklch(0.65 0.17 250 / 0.18);
+    }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
+  </style>
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <main>
+    <div class="page-head fade-up">
+      <div class="wrap">
+        <span class="kicker">FAQ & Contact · 04 / 04</span>
+        <h1>Questions,<br/><em>answered plainly.</em></h1>
+        <p>Six things people ask the most. Can't find what you're looking for? Reach us below — we read everything.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="faq-grid reveal">
+        <div class="faq-side">
+          <span class="kicker">FAQ</span>
+          <h2>The short version.</h2>
+          <p>Most answers live below. For anything else, the contact form is just a scroll away.</p>
+        </div>
+        <div class="faq-list" id="faq-list">
+          <div class="faq-item open">
+            <button class="faq-q">
+              <span>Is my data private?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">Yes. Habitra is offline-first — everything lives on your device by default. Cloud sync is opt-in, end-to-end encrypted, and you can export or delete your data at any time.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>Will my streak break if I miss a day?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">Only if you want it to. By default, missed days consume a "streak freeze" (you earn them passively) instead of resetting to zero. Streak anxiety is the enemy.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>Does it work offline?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">Fully. The whole app works offline, and syncs the moment you're back online. Core to how Habitra is built — not a fallback mode.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>Can I self-host the backend?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">Yes. The backend is open-source and ships with Docker + Kubernetes manifests. Point your client at your own server and you're done.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>Is there a mobile app?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">The web app is mobile-first and installs as a PWA today. Native iOS and Android apps are shipping with v1.0.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>How is this different from other habit trackers?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">Most habit apps are either spreadsheet-spartan or gamified-loud. Habitra sits in between: calm by default, but with the right affordances (stacks, routines, smart reminders) when you need them.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>What does it cost?</span>
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">The core loop is free, forever. Cloud sync and advanced analytics are part of Habitra Pro — $4/month. Self-hosting is free and open-source.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="contact" style="margin-top: 96px;">
+        <div class="section-head reveal">
+          <span class="kicker">Contact</span>
+          <h2>Talk to us.</h2>
+          <p>Bug? Feature idea? Just want to say hi? Pick whichever feels right.</p>
+        </div>
+
+        <div class="contact-grid reveal">
+          <div class="contact-card">
+            <div class="c-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h3>Email</h3>
+            <p>For support, partnerships, or anything else.</p>
+            <a href="mailto:hi@habitra.app">hi@habitra.app →</a>
+          </div>
+          <div class="contact-card">
+            <div class="c-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <h3>GitHub</h3>
+            <p>Open issues, pull requests, and the whole codebase.</p>
+            <a href="https://github.com/karuppan-the-pentester/habitra-web">karuppan-the-pentester →</a>
+          </div>
+          <div class="contact-card">
+            <div class="c-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <h3>Discord</h3>
+            <p>Hang out with other early users. Feature ideas welcome.</p>
+            <a href="#">Join the server →</a>
+          </div>
+          <div class="contact-card">
+            <div class="c-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </div>
+            <h3>X / Twitter</h3>
+            <p>Quick updates, screenshots, occasional rambling.</p>
+            <a href="#">@habitraapp →</a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Sent ✓'; this.querySelector('button').disabled=true;">
+          <label>
+            <span class="lbl">Name</span>
+            <input type="text" placeholder="Karuppan" required />
+          </label>
+          <label>
+            <span class="lbl">Email</span>
+            <input type="email" placeholder="you@example.com" required />
+          </label>
+          <label class="full">
+            <span class="lbl">Subject</span>
+            <input type="text" placeholder="Bug report, feature idea, partnership…" />
+          </label>
+          <label class="full">
+            <span class="lbl">Message</span>
+            <textarea placeholder="Tell us everything." required></textarea>
+          </label>
+          <div class="full" style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+            <p style="margin: 0; color: var(--subtle); font-size: 12px;">We reply within two days, usually faster.</p>
+            <button class="btn primary" type="submit">
+              Send message
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script>(function(){var s=localStorage.getItem('habitra_theme')||'dark';if(s==='light')document.documentElement.classList.add('light');})();</script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="_shared.jsx"></script>
+  <script type="text/babel">
+    function FAQPage() { useReveal(); return <NavBar active="faq" />; }
+    ReactDOM.createRoot(document.getElementById("nav-root")).render(<FAQPage />);
+    ReactDOM.createRoot(document.getElementById("footer-root")).render(<SiteFooter />);
+  </script>
+  <script>
+    document.querySelectorAll(".faq-item .faq-q").forEach(btn => {
+      btn.addEventListener("click", () => btn.parentElement.classList.toggle("open"));
+    });
+  </script>
+</body>
+</html>

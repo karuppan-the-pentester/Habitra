@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Habitra — Make a habit, we track it.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400;9..144,1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    .home-hero {
+      padding: 64px 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .home-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: 56px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .home-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .home-h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(48px, 6.4vw, 84px);
+      line-height: 0.98;
+      letter-spacing: -0.028em;
+      color: var(--fg);
+    }
+    .home-h1 em {
+      font-style: italic;
+      color: var(--accent);
+      position: relative;
+    }
+    .home-h1 em::after {
+      content: "";
+      position: absolute; left: 0; right: 0; bottom: 0.06em;
+      height: 0.12em; background: var(--accent);
+      opacity: 0.2; border-radius: 4px;
+      transform: scaleX(0); transform-origin: left;
+      animation: underline-grow 1.2s 0.6s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    @keyframes underline-grow { to { transform: scaleX(1); } }
+
+    .badge-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-bottom: 22px;
+      padding: 5px 12px; border-radius: 999px;
+      border: 1px solid var(--border);
+      background: oklch(var(--surface-c) / 0.6);
+    }
+    .ok-pulse {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--ok);
+      box-shadow: 0 0 0 0 var(--ok);
+      animation: pulse-ring 2.4s ease-out infinite;
+    }
+    .stat-strip {
+      margin-top: 44px; padding-top: 24px;
+      border-top: 1px solid var(--hairline);
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .stat-strip .n {
+      font-size: 26px; font-weight: 600; color: var(--fg);
+      font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+      font-family: var(--font-serif);
+    }
+
+    /* CTA strip on home */
+    .cta-strip {
+      margin: 80px 0 0;
+      padding: 56px 48px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, oklch(0.65 0.17 250 / 0.12), oklch(var(--surface-c)));
+      border: 1px solid oklch(0.65 0.17 250 / 0.3);
+      display: flex; justify-content: space-between; align-items: center; gap: 32px;
+    }
+    @media (max-width: 760px) {
+      .cta-strip { flex-direction: column; align-items: flex-start; padding: 36px 28px; }
+    }
+    .cta-strip h3 {
+      margin: 0; font-family: var(--font-serif); font-weight: 400;
+      font-size: clamp(26px, 3vw, 36px);
+      letter-spacing: -0.02em; color: var(--fg);
+    }
+    .cta-strip p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+  </style>
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <main>
+    <section class="home-hero">
+      <div class="wrap home-hero-grid">
+        <div class="fade-up">
+          <div class="badge-pill">
+            <span class="ok-pulse"></span>
+            <span class="kicker" style="color: var(--fg-dim)">v0.9 · Private beta</span>
+          </div>
+          <h1 class="home-h1">
+            Make a habit.<br/>
+            <em>We track it.</em>
+          </h1>
+          <p style="margin-top: 22px; margin-bottom: 28px; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 46ch;">
+            A quiet, precise habit tracker that stays out of your way. Swipe to complete, stack habits together, and watch your streaks breathe. No streak anxiety — just momentum.
+          </p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a class="btn primary" href="#preview">
+              Try the live demo
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <a class="btn" href="features.html">See features</a>
+          </div>
+          <div class="stat-strip">
+            <div><div class="n">7</div><div class="kicker" style="margin-top: 4px;">day rhythm</div></div>
+            <div><div class="n">∞</div><div class="kicker" style="margin-top: 4px;">habits tracked</div></div>
+            <div><div class="n">0ms</div><div class="kicker" style="margin-top: 4px;">offline-first</div></div>
+          </div>
+        </div>
+        <div id="hero-demo" class="fade-up d2"></div>
+      </div>
+    </section>
+
+    <section id="preview" style="padding: 80px 0;">
+      <div class="wrap">
+        <div class="section-head reveal" style="align-items: center; text-align: center; margin-left: auto; margin-right: auto;">
+          <span class="kicker">Try it yourself</span>
+          <h2>A real app, not a mockup.</h2>
+          <p style="margin: 0 auto;">Drag cards to complete, watch streaks update. Everything below is the live Today screen.</p>
+        </div>
+        <div id="full-demo" class="reveal"></div>
+      </div>
+    </section>
+
+    <section style="padding: 60px 0;">
+      <div class="wrap">
+        <div class="cta-strip reveal">
+          <div>
+            <h3>Three more pages, deeper still.</h3>
+            <p>Browse every feature, every screen, and the road ahead.</p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a class="btn primary" href="features.html">Features →</a>
+            <a class="btn" href="gallery.html">Gallery</a>
+            <a class="btn" href="roadmap.html">Roadmap</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script type="application/json" id="habitra-seed">
+  [
+    {"id":"a","icon":"🧘","name":"Morning meditation","target":10,"unit":"min","streak":12,"color":"#7aa5e8","week":[1,1,1,0,1,1,1],"period":"morning","done":true,"type":"number","rate":0.86},
+    {"id":"b","icon":"📖","name":"Read 20 pages","target":20,"unit":"pg","streak":7,"color":"#a78bfa","week":[1,0,1,1,1,1,0],"period":"morning","done":false,"type":"number","rate":0.71},
+    {"id":"c","icon":"🏃","name":"Run","target":3,"unit":"km","streak":4,"color":"#22c55e","week":[1,1,0,1,1,0,0],"period":"morning","done":false,"type":"number","rate":0.62},
+    {"id":"d","icon":"💧","name":"Drink water","target":8,"unit":"cups","streak":28,"color":"#60a5fa","week":[1,1,1,1,1,1,1],"period":"afternoon","done":false,"type":"number","rate":0.95},
+    {"id":"e","icon":"🎸","name":"Practice guitar","target":1,"unit":"","streak":3,"color":"#f59e0b","week":[0,1,1,0,1,1,0],"period":"evening","done":false,"type":"boolean","rate":0.54},
+    {"id":"f","icon":"🚭","name":"Skip junk food","target":1,"unit":"","streak":9,"color":"#ef4444","week":[1,1,1,1,0,1,1],"period":"anytime","done":false,"type":"negative","rate":0.78}
+  ]
+  </script>
+
+  <script>
+    (function () {
+      var saved = localStorage.getItem('habitra_theme') || 'dark';
+      if (saved === 'light') document.documentElement.classList.add('light');
+    })();
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="_shared.jsx"></script>
+  <script type="text/babel" src="habit-demo.jsx"></script>
+  <script type="text/babel" src="page-home.jsx"></script>
+</body>
+</html>

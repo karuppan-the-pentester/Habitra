@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roadmap — Habitra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border) 40%, var(--border));
+    }
+    .tl-entry { position: relative; padding: 32px 0; border-bottom: 1px solid var(--hairline); }
+    .tl-entry:last-child { border-bottom: none; }
+    .tl-entry::before {
+      content: ""; position: absolute; left: -32px; top: 40px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--bg);
+      border: 2.5px solid var(--border-strong);
+      transition: all 280ms;
+    }
+    .tl-entry.now::before {
+      border-color: var(--accent); background: var(--accent);
+      box-shadow: 0 0 0 4px oklch(0.65 0.17 250 / 0.2), 0 0 24px var(--accent);
+      animation: pulse-ring 2.4s ease-out infinite;
+    }
+    .tl-entry.next::before { border-color: var(--accent); }
+    .tl-grid {
+      display: grid; grid-template-columns: 200px 1fr auto;
+      gap: 32px; align-items: baseline;
+    }
+    @media (max-width: 760px) { .tl-grid { grid-template-columns: 1fr; gap: 12px; } }
+    .tl-version {
+      font-family: var(--font-mono);
+      font-size: clamp(28px, 3.4vw, 38px);
+      color: var(--fg); font-weight: 600;
+      letter-spacing: -0.02em; line-height: 1;
+    }
+    .tl-date { margin-top: 6px; }
+    .tl-title {
+      margin: 0 0 12px;
+      font-family: var(--font-serif); font-weight: 400;
+      font-size: clamp(22px, 2.6vw, 28px);
+      color: var(--fg); letter-spacing: -0.015em; line-height: 1.15;
+    }
+    .tl-items { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+    .tl-items li {
+      font-size: 12.5px; color: var(--fg-dim);
+      padding: 5px 10px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: all 180ms;
+    }
+    .tl-items li:hover { background: var(--surface-2); border-color: var(--accent); color: var(--fg); }
+
+    .tl-status {
+      padding: 4px 10px; border-radius: 999px;
+      font-family: var(--font-mono); font-size: 9.5px;
+      letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+      white-space: nowrap;
+    }
+    .tl-status.now { background: oklch(0.74 0.14 155 / 0.15); color: var(--ok); border: 1px solid oklch(0.74 0.14 155 / 0.3); }
+    .tl-status.next { background: oklch(0.65 0.17 250 / 0.15); color: var(--accent); border: 1px solid oklch(0.65 0.17 250 / 0.3); }
+    .tl-status.later { background: var(--surface-2); color: var(--subtle); border: 1px solid var(--border); }
+    .tl-status.shipped { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+
+    .changelog-strip {
+      margin-top: 80px;
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      background: oklch(var(--surface-c) / 0.5);
+      border: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 760px) { .changelog-strip { grid-template-columns: 1fr; } }
+    .changelog-strip h4 {
+      margin: 0 0 8px; font-family: var(--font-mono); font-size: 10.5px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--subtle); font-weight: 500;
+    }
+    .changelog-strip .num {
+      font-family: var(--font-serif); font-size: 38px; font-weight: 400;
+      color: var(--fg); line-height: 1; letter-spacing: -0.02em;
+    }
+    .changelog-strip .lbl { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <main>
+    <div class="page-head fade-up">
+      <div class="wrap">
+        <span class="kicker">Roadmap · 03 / 04</span>
+        <h1>Built in the<br/><em>open.</em></h1>
+        <p>A living changelog. We ship small, steady, and honest about what's next. The dot pulses where we are right now.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="changelog-strip reveal">
+        <div>
+          <h4>Shipped this year</h4>
+          <div class="num">12</div>
+          <div class="lbl">Versions</div>
+        </div>
+        <div>
+          <h4>Open issues</h4>
+          <div class="num">23</div>
+          <div class="lbl">On GitHub</div>
+        </div>
+        <div>
+          <h4>Days to v1.0</h4>
+          <div class="num" style="color: var(--accent);">~60</div>
+          <div class="lbl">Targeting June 2026</div>
+        </div>
+      </div>
+
+      <div class="timeline reveal" style="margin-top: 80px;">
+        <div class="tl-entry">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v0.7</div>
+              <div class="kicker tl-date">Jan 2026</div>
+            </div>
+            <div>
+              <h3 class="tl-title">Foundation</h3>
+              <ul class="tl-items">
+                <li>Habit CRUD</li>
+                <li>Daily logs</li>
+                <li>Auth & accounts</li>
+              </ul>
+            </div>
+            <span class="tl-status shipped">✓ Shipped</span>
+          </div>
+        </div>
+
+        <div class="tl-entry">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v0.8</div>
+              <div class="kicker tl-date">Mar 2026</div>
+            </div>
+            <div>
+              <h3 class="tl-title">Streaks & analytics</h3>
+              <ul class="tl-items">
+                <li>Streak engine with freezes</li>
+                <li>30-day heatmap</li>
+                <li>Completion rate</li>
+                <li>Week dots</li>
+              </ul>
+            </div>
+            <span class="tl-status shipped">✓ Shipped</span>
+          </div>
+        </div>
+
+        <div class="tl-entry now">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v0.9</div>
+              <div class="kicker tl-date">Apr 2026 · current</div>
+            </div>
+            <div>
+              <h3 class="tl-title">Public preview</h3>
+              <ul class="tl-items">
+                <li>Today screen with swipe actions</li>
+                <li>Habit stacks</li>
+                <li>Time-of-day grouping</li>
+                <li>Offline-first sync</li>
+                <li>Guided routines</li>
+              </ul>
+            </div>
+            <span class="tl-status now">● Shipping</span>
+          </div>
+        </div>
+
+        <div class="tl-entry next">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v1.0</div>
+              <div class="kicker tl-date">Jun 2026</div>
+            </div>
+            <div>
+              <h3 class="tl-title">General availability</h3>
+              <ul class="tl-items">
+                <li>iOS & Android apps</li>
+                <li>Multi-device sync</li>
+                <li>Widgets & shortcuts</li>
+                <li>Public API</li>
+                <li>Self-host docs</li>
+              </ul>
+            </div>
+            <span class="tl-status next">Next</span>
+          </div>
+        </div>
+
+        <div class="tl-entry">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v1.1</div>
+              <div class="kicker tl-date">Aug 2026</div>
+            </div>
+            <div>
+              <h3 class="tl-title">Teams & shared habits</h3>
+              <ul class="tl-items">
+                <li>Group habits</li>
+                <li>Accountability partners</li>
+                <li>Shared streaks</li>
+                <li>Family plan</li>
+              </ul>
+            </div>
+            <span class="tl-status later">Later</span>
+          </div>
+        </div>
+
+        <div class="tl-entry">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v1.2</div>
+              <div class="kicker tl-date">Q4 2026</div>
+            </div>
+            <div>
+              <h3 class="tl-title">Insights engine</h3>
+              <ul class="tl-items">
+                <li>Weekly reviews</li>
+                <li>AI-assisted reflections</li>
+                <li>Goal planning</li>
+                <li>Pattern detection</li>
+              </ul>
+            </div>
+            <span class="tl-status later">Later</span>
+          </div>
+        </div>
+
+        <div class="tl-entry">
+          <div class="tl-grid">
+            <div>
+              <div class="tl-version">v2.0</div>
+              <div class="kicker tl-date">2027</div>
+            </div>
+            <div>
+              <h3 class="tl-title">Habitra OS</h3>
+              <ul class="tl-items">
+                <li>Plugin system</li>
+                <li>Custom integrations</li>
+                <li>Wearables</li>
+              </ul>
+            </div>
+            <span class="tl-status later">Vision</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script>(function(){var s=localStorage.getItem('habitra_theme')||'dark';if(s==='light')document.documentElement.classList.add('light');})();</script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="_shared.jsx"></script>
+  <script type="text/babel">
+    function RoadmapPage() { useReveal(); return <NavBar active="roadmap" />; }
+    ReactDOM.createRoot(document.getElementById("nav-root")).render(<RoadmapPage />);
+    ReactDOM.createRoot(document.getElementById("footer-root")).render(<SiteFooter />);
+  </script>
+</body>
+</html>
